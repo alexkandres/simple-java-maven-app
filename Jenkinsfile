@@ -9,6 +9,8 @@ pipeline {
     stages {
         stage('Build'){
             steps{
+                sh 'pwd'
+                sh 'ls'
                 sh 'mvn -B -DskipTests clean package'
             }
         }
@@ -20,6 +22,11 @@ pipeline {
                 always{
                     junit 'target/surefire-reports/*.xml'
                 }
+            }
+        }
+        stage('Deliver'){
+            steps{
+                sh './jenkins/scripts/deliver.sh'
             }
         }
     }
